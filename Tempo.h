@@ -5,14 +5,14 @@
 class Tempo{
     private:
         int horas, minutos, segundos;
+        void validaTempo();
     public:
         Tempo();
         ~Tempo();
-        void validaTempo();
         long long converteTempoSegundos();
-        Tempo converteSegundosTempo();
+        Tempo converteSegundosTempo(long long);
         void setTempo(int,int,int);
-        int getTempo();
+        void getTempo();
 };
 
 Tempo::Tempo(){
@@ -33,7 +33,7 @@ Tempo::~Tempo(){
 
 void Tempo::validaTempo(){
     if(horas<0 || horas>23 || minutos<0 || minutos>59 || segundos<0 || segundos>59){
-        throw 0;
+        throw string("Data Invalida");
     }
 }
 
@@ -48,10 +48,14 @@ long long Tempo::converteTempoSegundos(){
     return ((horas*3600)+(minutos*60)+segundos);
 }
 
-Tempo Tempo::converteSegundosTempo(){
+Tempo Tempo::converteSegundosTempo(long long segundos){
     Tempo tempo;
     tempo.setTempo((segundos/3600), ((segundos%3600)/60), ((segundos%3600)%60));
     return tempo;
+}
+
+void Tempo::getTempo(){
+    cout << horas << ':' << minutos << ':' << segundos;
 }
 
 #endif
